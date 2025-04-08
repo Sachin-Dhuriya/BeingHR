@@ -9,7 +9,7 @@ const authRoutes = require('./routes/auth');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const cors = require("cors");
-const User = require("./models/User"); // Ensure correct case
+const User = require("./models/user"); // Ensure correct case
 
 //---------------------------------------NodeMailer Setup-------------------------------------------------
 const nodemailer = require("nodemailer");
