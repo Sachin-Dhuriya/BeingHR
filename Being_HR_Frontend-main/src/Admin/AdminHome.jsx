@@ -31,7 +31,7 @@ const AdminHome = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/check-admin", { credentials: "include" }) // Fetch admin status from the backend
+    fetch(`${import.meta.env.VITE_API_URL}/check-admin`, { credentials: "include" }) // Fetch admin status from the backend
       .then((res) => res.json())
       .then((data) => {
         if (!data.isAdmin) {

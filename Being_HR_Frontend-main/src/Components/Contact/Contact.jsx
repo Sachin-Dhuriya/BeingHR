@@ -18,7 +18,7 @@ const Contact = () => {
 
   // Check if user is logged in
   useEffect(() => {
-    fetch("http://localhost:5000/auth-status", { credentials: "include" })
+    fetch(`${import.meta.env.VITE_API_URL}/auth-status`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setIsLoggedIn(data.isAuthenticated))
       .catch(() => setIsLoggedIn(false));
@@ -41,7 +41,7 @@ const Contact = () => {
     setResponseMessage("");
 
     try {
-      const response = await fetch("http://localhost:5000/form", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

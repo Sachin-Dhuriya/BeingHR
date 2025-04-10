@@ -9,11 +9,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/auth/user", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/user`, {
           credentials: "include",
         });
         const data = await res.json();
-        
+
         if (data && data._id) {
           setUser(data);
           localStorage.setItem("user", JSON.stringify(data)); // Store in localStorage
@@ -32,13 +32,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = () => {
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`; // ✅ fixed typo
   };
 
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "http://localhost:5000/auth/logout";
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/logout`;
   };
 
   return (

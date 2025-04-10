@@ -15,9 +15,9 @@ router.get(
 router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => {
+  (req, res) => { 
     // Redirect to frontend with user data (you need to send a token in req.user)
-    res.redirect(`${process.env.FRONTEND_URL}?token=${req.user.token}`);
+    res.redirect(process.env.FRONTEND_URL); // No token needed
   }
 );
 

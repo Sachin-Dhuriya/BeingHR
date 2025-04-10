@@ -18,7 +18,7 @@ const Profile = () => {
     // Fetch event details for registered events
     const fetchEvents = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/user", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/user`, {
           withCredentials: true, // Ensures authentication
         });
 
@@ -26,7 +26,7 @@ const Profile = () => {
           const eventDetails = await Promise.all(
             res.data.registeredEvents.map(async (eventId) => {
               try {
-                const eventRes = await axios.get(`http://localhost:5000/eventdetails/${eventId}`);
+                const eventRes = await axios.get(`${import.meta.env.VITE_API_URL}/eventdetails/${eventId}`);
                 return eventRes.data; // Full event data
               } catch (err) {
                 console.error("Error fetching event details:", err);

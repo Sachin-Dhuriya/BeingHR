@@ -9,7 +9,7 @@ const Login = () => {
 
   useEffect(() => {
     // Check for authentication response from the backend
-    fetch("http://localhost:5000/auth/user", { credentials: "include" })
+    fetch(`${import.meta.env.VITE_API_URL}/auth/user`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => {
         if (data && data.email) {

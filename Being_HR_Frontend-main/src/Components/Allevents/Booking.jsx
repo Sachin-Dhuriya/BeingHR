@@ -21,7 +21,7 @@ const Booking = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/eventdetails/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/eventdetails/${id}`);
         setEventData(res.data);
         setFormData((prev) => ({ ...prev, eventName: res.data.title }));
       } catch (err) {
@@ -31,7 +31,7 @@ const Booking = () => {
 
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/user", { withCredentials: true });
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/user`, { withCredentials: true });
         setUser(res.data);
         setFormData((prev) => ({
           ...prev,

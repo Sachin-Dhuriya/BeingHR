@@ -9,7 +9,7 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchEventRegistrations = async () => {
       try {
-        const response = await fetch('http://localhost:5000/eventregistration');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/eventregistration`);
         const data = await response.json();
         setEventRegistrations(data);
       } catch (error) {

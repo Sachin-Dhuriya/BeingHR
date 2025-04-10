@@ -83,8 +83,9 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false, // Set to true in production (HTTPS required)
+            secure: true,
             httpOnly: true,
+            sameSite: "none",
             maxAge: 24 * 60 * 60 * 1000, // 1 day
         },
     })
@@ -205,16 +206,24 @@ app.get("/eventdetails/:id", async (req, res) => {
 //--------------------------------------User Details Show Route----------------------------------------------------------------
 app.get("/users", async (req, res) => {
     try {
-      const users = await User.find({});
-      res.status(200).json(users);
+        const users = await User.find({});
+        res.status(200).json(users);
     } catch (error) {
-      console.error("Error fetching users:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-  });
+});
 
 //--------------------------------------Get Logged-in User----------------------------------------------------------------
 app.get("/user", (req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "Not authenticated" });
+    }
+    res.status(200).json(req.user);
+});
+
+//---------------------------------------Alias Route----------------------------------------------------------
+app.get("/auth/user", (req, res) => {
     if (!req.isAuthenticated()) {
         return res.status(401).json({ message: "Not authenticated" });
     }
@@ -246,24 +255,24 @@ app.post("/register-event", async (req, res) => {
 });
 
 //--------------------------------------Check Admin----------------------------------------------------------------
-app.get("/check-admin",async (req, res) => {
+app.get("/check-admin", async (req, res) => {
     try {
-      const user = await User.findById(req.user._id);
-      res.json({ isAdmin: user?.isAdmin || false });
+        const user = await User.findById(req.user._id);
+        res.json({ isAdmin: user?.isAdmin || false });
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
-  });
+});
 
 
 //--------------------------------------auth status----------------------------------------------------------------
-  app.get("/auth-status", (req, res) => {
+app.get("/auth-status", (req, res) => {
     if (req.isAuthenticated()) {
-      res.json({ isAuthenticated: true });
+        res.json({ isAuthenticated: true });
     } else {
-      res.json({ isAuthenticated: false });
+        res.json({ isAuthenticated: false });
     }
-  });
+});
 //--------------------------------------Listening Port----------------------------------------------------------------
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {

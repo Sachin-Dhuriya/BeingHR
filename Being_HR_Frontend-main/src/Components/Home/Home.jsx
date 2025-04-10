@@ -68,7 +68,7 @@ function Home() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/eventdetails");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/eventdetails`);
         setMongoEvents(response.data.data);
       } catch (error) {
         console.error("Error fetching events:", error);

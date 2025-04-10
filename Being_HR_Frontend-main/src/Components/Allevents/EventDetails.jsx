@@ -21,7 +21,7 @@ const EventCard = () => {
     const fetchEvent = async () => {
       try {
         console.log("Attempting to fetch event details...");
-        const response = await axios.get(`http://localhost:5000/eventdetails/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/eventdetails/${id}`);
         console.log("Fetched event data:", response.data); // Check fetched data
         setEvent(response.data);
       } catch (error) {
